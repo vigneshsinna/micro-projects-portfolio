@@ -4,12 +4,12 @@ import { SnippetManager, Snippet } from '../services/SnippetManager';
 export class SnippetCompletionProvider implements vscode.CompletionItemProvider {
     constructor(private snippetManager: SnippetManager) {}
 
-    provideCompletionItems(
+    async provideCompletionItems(
         document: vscode.TextDocument,
         position: vscode.Position,
         token: vscode.CancellationToken,
         context: vscode.CompletionContext
-    ): vscode.ProviderResult<vscode.CompletionItem[] | vscode.CompletionList> {
+    ): Promise<vscode.CompletionItem[]> {
         const snippets = this.snippetManager.getSnippets();
         const language = document.languageId;
         

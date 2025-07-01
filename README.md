@@ -82,9 +82,8 @@ All projects follow these standards:
 ## Author
 
 **Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-- Email: your.email@example.com
+- GitHub: [@vigneshsinna](https://github.com/vigneshsinna)
+- Email: vigneshsinna@gmail.com
 
 ## License
 

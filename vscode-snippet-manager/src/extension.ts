@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { SnippetProvider } from './providers/SnippetProvider';
 import { SnippetManager } from './services/SnippetManager';
-import { SnippetCompletionProvider } from './providers/CompletionProvider';
+// import { SnippetCompletionProvider } from './providers/CompletionProvider';
 
 let snippetManager: SnippetManager;
 let snippetProvider: SnippetProvider;
@@ -20,12 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Register completion provider for all languages
-    const completionProvider = new SnippetCompletionProvider(snippetManager);
-    vscode.languages.registerCompletionItemProvider(
-        { scheme: 'file' },
-        completionProvider,
-        '.'
-    );
+    // const completionProvider = new SnippetCompletionProvider(snippetManager);
+    // vscode.languages.registerCompletionItemProvider(
+    //     { scheme: 'file' },
+    //     completionProvider,
+    //     '.'
+    // );
 
     // Register commands
     const commands = [
@@ -110,7 +110,7 @@ async function createNewSnippet() {
         name: name.trim(),
         description: description || '',
         language: language.id,
-        body: selectedText || '',
+        body: selectedText ? selectedText.split('\n') : [''],
         tags: [],
         folder: 'Default'
     };
@@ -126,12 +126,12 @@ async function createNewSnippet() {
 
 async function insertSnippet(snippetId?: string) {
     if (!snippetId) {
-        const snippets = await snippetManager.getAllSnippets();
-        const items = snippets.map(snippet => ({
+        const snippets = await snippetManager.getSnippets();
+        const items = snippets.map((snippet: any) => ({
             label: snippet.name,
             description: snippet.description,
             detail: `${snippet.language} | ${snippet.folder}`,
-            snippet: snippet
+            snippetData: snippet
         }));
 
         const selected = await vscode.window.showQuickPick(items, {
@@ -140,7 +140,12 @@ async function insertSnippet(snippetId?: string) {
         });
 
         if (!selected) return;
-        snippetId = selected.snippet.id;
+        snippetId = selected.snippetData.id;
+    }
+
+    if (!snippetId) {
+        vscode.window.showWarningMessage('No snippet selected');
+        return;
     }
 
     const editor = vscode.window.activeTextEditor;
@@ -173,11 +178,11 @@ async function searchSnippets() {
 
     try {
         const results = await snippetManager.searchSnippets(query);
-        const items = results.map(snippet => ({
+        const items = results.map((snippet: any) => ({
             label: snippet.name,
             description: snippet.description,
             detail: `${snippet.language} | ${snippet.folder}`,
-            snippet: snippet
+            snippetData: snippet
         }));
 
         const selected = await vscode.window.showQuickPick(items, {
@@ -186,7 +191,7 @@ async function searchSnippets() {
         });
 
         if (selected) {
-            await insertSnippet(selected.snippet.id);
+            await insertSnippet(selected.snippetData.id);
         }
     } catch (error) {
         vscode.window.showErrorMessage(`Search failed: ${error}`);

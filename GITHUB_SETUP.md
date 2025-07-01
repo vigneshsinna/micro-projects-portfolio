@@ -49,6 +49,19 @@ gh auth login
 git push -u origin main
 ```
 
+### Alternative: Use Windows Credential Manager (Best for Windows)
+```bash
+# Configure credential manager (opens login window)
+git config --global credential.helper manager-core
+git push -u origin main
+```
+
+### Alternative: GitHub Desktop (Easiest - No Terminal)
+1. Download from https://desktop.github.com/
+2. Sign in with GitHub account  
+3. Add existing repository: `v:\pers\Freelance\micro-projects-portfolio`
+4. Click "Publish repository"
+
 ## Step 4: Verify Upload
 
 After pushing, your GitHub repository should contain:
@@ -150,3 +163,61 @@ git config --global credential.helper manager-core
 # Push (will prompt once and remember)
 git push -u origin main
 ```
+
+## Common Issues & Solutions
+
+### Issue: Can't Paste Personal Access Token in Terminal
+
+**Problem**: Terminal password prompts often don't show typing and may block pasting.
+
+**Solutions**:
+
+#### Solution 1: Use Git Credential Manager (Recommended for Windows)
+```bash
+# Configure credential manager
+git config --global credential.helper manager-core
+
+# Try push again - will open a login window
+git push -u origin main
+```
+This will open a Windows dialog where you can paste your token properly.
+
+#### Solution 2: Set Token in URL (Temporary)
+```bash
+# Remove existing remote
+git remote remove origin
+
+# Add remote with token in URL (replace YOUR_TOKEN)
+git remote add origin https://YOUR_PERSONAL_ACCESS_TOKEN@github.com/vigneshsinna/micro-projects-portfolio.git
+
+# Push
+git push -u origin main
+
+# Remove token from URL for security (optional)
+git remote set-url origin https://github.com/vigneshsinna/micro-projects-portfolio.git
+```
+
+#### Solution 3: GitHub Desktop (Easiest - No Terminal Needed)
+1. Download: https://desktop.github.com/
+2. Install and sign in with GitHub account
+3. File → Add Local Repository
+4. Select: `v:\pers\Freelance\micro-projects-portfolio`
+5. Click "Publish repository" button
+6. Choose "micro-projects-portfolio" as name
+7. Make sure "Keep this code private" is UNCHECKED for portfolio visibility
+8. Click "Publish repository"
+
+#### Solution 4: Type Token Manually
+- When prompted for password, **slowly type** your token character by character
+- **Don't worry** if you can't see what you're typing - it's hidden for security
+- Press **Enter** when done
+
+#### Solution 5: Use PowerShell Instead of CMD
+```powershell
+# Open PowerShell and navigate to project
+cd "v:\pers\Freelance\micro-projects-portfolio"
+
+# Try push
+git push -u origin main
+```
+PowerShell sometimes handles pasting better than Command Prompt.
