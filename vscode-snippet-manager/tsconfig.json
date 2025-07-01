@@ -8,7 +8,10 @@
 		],
 		"sourceMap": true,
 		"rootDir": "src",
-		"strict": true
+		"strict": true,
+		"types": ["vscode", "node"],
+		"skipLibCheck": true,
+		"moduleResolution": "node"
 	},
 	"exclude": [
 		"node_modules",

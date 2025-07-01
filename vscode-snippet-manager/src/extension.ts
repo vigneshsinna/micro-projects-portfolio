@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { SnippetProvider } from './providers/SnippetProvider';
 import { SnippetManager } from './services/SnippetManager';
-// import { SnippetCompletionProvider } from './providers/CompletionProvider';
+import { SnippetCompletionProvider } from './providers/CompletionProvider';
 
 let snippetManager: SnippetManager;
 let snippetProvider: SnippetProvider;
@@ -20,12 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Register completion provider for all languages
-    // const completionProvider = new SnippetCompletionProvider(snippetManager);
-    // vscode.languages.registerCompletionItemProvider(
-    //     { scheme: 'file' },
-    //     completionProvider,
-    //     '.'
-    // );
+    const completionProvider = new SnippetCompletionProvider(snippetManager);
+    vscode.languages.registerCompletionItemProvider(
+        { scheme: 'file' },
+        completionProvider,
+        '.'
+    );
 
     // Register commands
     const commands = [
