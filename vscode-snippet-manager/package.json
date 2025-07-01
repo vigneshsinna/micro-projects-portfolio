@@ -1,0 +1,304 @@
+{
+  "name": "snippet-manager",
+  "displayName": "Snippet Manager",
+  "description": "Powerful snippet management and team collaboration for VS Code",
+  "version": "1.0.0",
+  "publisher": "your-publisher-name",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Snippets",
+    "Other"
+  ],
+  "keywords": [
+    "snippets",
+    "code",
+    "productivity",
+    "team",
+    "collaboration",
+    "templates"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "snippetManager.openPanel",
+        "title": "Open Snippet Manager",
+        "category": "Snippet Manager",
+        "icon": "$(snippet)"
+      },
+      {
+        "command": "snippetManager.createSnippet",
+        "title": "Create New Snippet",
+        "category": "Snippet Manager",
+        "icon": "$(add)"
+      },
+      {
+        "command": "snippetManager.insertSnippet",
+        "title": "Insert Snippet",
+        "category": "Snippet Manager",
+        "icon": "$(insert)"
+      },
+      {
+        "command": "snippetManager.searchSnippets",
+        "title": "Search Snippets",
+        "category": "Snippet Manager",
+        "icon": "$(search)"
+      },
+      {
+        "command": "snippetManager.importSnippets",
+        "title": "Import Snippets",
+        "category": "Snippet Manager"
+      },
+      {
+        "command": "snippetManager.exportSnippets",
+        "title": "Export Snippets",
+        "category": "Snippet Manager"
+      },
+      {
+        "command": "snippetManager.syncWithTeam",
+        "title": "Sync with Team",
+        "category": "Snippet Manager",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "snippetManager.deleteSnippet",
+        "title": "Delete Snippet",
+        "category": "Snippet Manager",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "snippetManager.editSnippet",
+        "title": "Edit Snippet",
+        "category": "Snippet Manager",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "snippetManager.duplicateSnippet",
+        "title": "Duplicate Snippet",
+        "category": "Snippet Manager",
+        "icon": "$(copy)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "snippetManager.openPanel",
+        "key": "ctrl+shift+alt+s",
+        "mac": "cmd+shift+alt+s"
+      },
+      {
+        "command": "snippetManager.createSnippet",
+        "key": "ctrl+alt+n",
+        "mac": "cmd+alt+n"
+      },
+      {
+        "command": "snippetManager.insertSnippet",
+        "key": "ctrl+alt+i",
+        "mac": "cmd+alt+i"
+      },
+      {
+        "command": "snippetManager.searchSnippets",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s"
+      }
+    ],
+    "views": {
+      "explorer": [
+        {
+          "id": "snippetManager.snippetsView",
+          "name": "Snippets",
+          "when": "config.snippetManager.showInExplorer",
+          "icon": "$(snippet)",
+          "contextualTitle": "Snippet Manager"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "snippetManager",
+          "title": "Snippet Manager",
+          "icon": "$(snippet)"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Snippet Manager",
+      "properties": {
+        "snippetManager.defaultLanguage": {
+          "type": "string",
+          "default": "javascript",
+          "description": "Default language for new snippets"
+        },
+        "snippetManager.autoSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically save snippets when modified"
+        },
+        "snippetManager.syncRepository": {
+          "type": "string",
+          "default": "",
+          "description": "Git repository URL for team snippet synchronization"
+        },
+        "snippetManager.showInExplorer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show snippet view in the Explorer panel"
+        },
+        "snippetManager.enableTelemetry": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable anonymous usage analytics"
+        },
+        "snippetManager.theme": {
+          "type": "string",
+          "enum": ["auto", "light", "dark"],
+          "default": "auto",
+          "description": "Theme preference for snippet manager UI"
+        },
+        "snippetManager.searchLimit": {
+          "type": "number",
+          "default": 50,
+          "minimum": 10,
+          "maximum": 200,
+          "description": "Maximum number of search results to display"
+        },
+        "snippetManager.autoComplete": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable snippet auto-completion in editor"
+        },
+        "snippetManager.debug": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable debug mode with verbose logging"
+        },
+        "snippetManager.logLevel": {
+          "type": "string",
+          "enum": ["error", "warn", "info", "verbose"],
+          "default": "info",
+          "description": "Logging level for debug output"
+        }
+      }
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "snippetManager.openPanel"
+        },
+        {
+          "command": "snippetManager.createSnippet"
+        },
+        {
+          "command": "snippetManager.insertSnippet"
+        },
+        {
+          "command": "snippetManager.searchSnippets"
+        },
+        {
+          "command": "snippetManager.importSnippets"
+        },
+        {
+          "command": "snippetManager.exportSnippets"
+        },
+        {
+          "command": "snippetManager.syncWithTeam"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "snippetManager.createSnippet",
+          "when": "view == snippetManager.snippetsView",
+          "group": "navigation"
+        },
+        {
+          "command": "snippetManager.searchSnippets",
+          "when": "view == snippetManager.snippetsView",
+          "group": "navigation"
+        },
+        {
+          "command": "snippetManager.syncWithTeam",
+          "when": "view == snippetManager.snippetsView",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "snippetManager.insertSnippet",
+          "when": "view == snippetManager.snippetsView && viewItem == snippet",
+          "group": "inline"
+        },
+        {
+          "command": "snippetManager.editSnippet",
+          "when": "view == snippetManager.snippetsView && viewItem == snippet",
+          "group": "inline"
+        },
+        {
+          "command": "snippetManager.duplicateSnippet",
+          "when": "view == snippetManager.snippetsView && viewItem == snippet",
+          "group": "actions"
+        },
+        {
+          "command": "snippetManager.deleteSnippet",
+          "when": "view == snippetManager.snippetsView && viewItem == snippet",
+          "group": "actions"
+        }
+      ]
+    },
+    "icons": {
+      "snippet-manager-icon": {
+        "description": "Snippet Manager icon",
+        "default": {
+          "fontPath": "./resources/icons/snippet-manager.woff",
+          "fontCharacter": "\\E001"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "nyc npm test",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "vscode:prepublish": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "nyc": "^15.1.0",
+    "mocha": "^10.1.0"
+  },
+  "dependencies": {
+    "fuse.js": "^6.6.2",
+    "simple-git": "^3.15.0",
+    "uuid": "^9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/vscode-snippet-manager.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/vscode-snippet-manager/issues"
+  },
+  "homepage": "https://github.com/your-username/vscode-snippet-manager#readme",
+  "license": "MIT",
+  "icon": "resources/icons/icon.png",
+  "galleryBanner": {
+    "color": "#232323",
+    "theme": "dark"
+  }
+}
