@@ -8,24 +8,48 @@
 4. Do NOT initialize with README, .gitignore, or license (we already have these)
 5. Click "Create repository"
 
-## Step 2: Connect Local Repository to GitHub
+## Step 2: Setup GitHub Authentication (REQUIRED)
 
-Run these commands in your terminal (replace YOUR_USERNAME with your actual GitHub username):
+GitHub requires Personal Access Token authentication. Follow these steps:
+
+### Create Personal Access Token:
+1. Go to https://github.com/settings/tokens
+2. Click "Generate new token" → "Generate new token (classic)"
+3. Give it a name like "micro-projects-portfolio"
+4. Set expiration (recommend 90 days or no expiration)
+5. Select scopes: **repo** (full control of private repositories)
+6. Click "Generate token"
+7. **COPY THE TOKEN** (you won't see it again!)
+
+## Step 3: Connect Local Repository to GitHub
+
+Run these commands in your terminal:
 
 ```bash
 cd "v:\pers\Freelance\micro-projects-portfolio"
 
-# Add GitHub remote origin
-git remote add origin https://github.com/YOUR_USERNAME/micro-projects-portfolio.git
+# Add GitHub remote origin (replace vigneshsinna with your username)
+git remote add origin https://github.com/vigneshsinna/micro-projects-portfolio.git
 
 # Rename branch to main (GitHub default)
 git branch -M main
 
-# Push to GitHub
+# Push to GitHub (will prompt for credentials)
 git push -u origin main
 ```
 
-## Step 3: Verify Upload
+**When prompted for credentials:**
+- Username: `vigneshsinna` (your GitHub username)
+- Password: `paste_your_personal_access_token_here`
+
+### Alternative: Use GitHub CLI (Recommended)
+```bash
+# Install GitHub CLI from https://cli.github.com/
+gh auth login
+git push -u origin main
+```
+
+## Step 4: Verify Upload
 
 After pushing, your GitHub repository should contain:
 - ✅ AI Todo App (fully functional)
@@ -85,3 +109,44 @@ Having this on GitHub will showcase:
 - ✅ VS Code extension development
 - ✅ Modern tooling (Vite, Tailwind, Zustand)
 - ✅ Clean code and documentation practices
+
+## Troubleshooting Authentication
+
+### If you get "Authentication failed" error:
+
+1. **Generate Personal Access Token** (see Step 2 above)
+2. **Use token as password** when prompted
+3. **Check token permissions** - ensure "repo" scope is selected
+
+### Alternative Authentication Methods:
+
+#### Option 1: GitHub Desktop (Easiest)
+1. Download GitHub Desktop from https://desktop.github.com/
+2. Sign in with your GitHub account
+3. Add existing repository: `v:\pers\Freelance\micro-projects-portfolio`
+4. Publish repository to GitHub
+
+#### Option 2: SSH Key Authentication
+```bash
+# Generate SSH key
+ssh-keygen -t ed25519 -C "your.email@example.com"
+
+# Add to SSH agent
+ssh-add ~/.ssh/id_ed25519
+
+# Copy public key and add to GitHub
+cat ~/.ssh/id_ed25519.pub
+
+# Use SSH remote instead
+git remote set-url origin git@github.com:vigneshsinna/micro-projects-portfolio.git
+git push -u origin main
+```
+
+#### Option 3: Store Credentials (Windows)
+```bash
+# Configure Git to store credentials
+git config --global credential.helper manager-core
+
+# Push (will prompt once and remember)
+git push -u origin main
+```
