@@ -1,7 +1,4 @@
 # Micro-Projects Portfolio Setup Guide
-
-This guide will help you set up and run each micro-project in your portfolio.
-
 ## Prerequisites
 
 - Node.js 16+ (for React and VS Code extension projects)
