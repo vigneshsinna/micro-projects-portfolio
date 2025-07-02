@@ -48,6 +48,18 @@ venv.bak/
 
 # VS Code Extension
 *.vsix
+
+# Local helper scripts (not for public repo)
+push_with_credential_manager.bat
+setup_github_auth.bat
+setup_github.bat
+*.bat
+
+# Temporary and test files
+test-*.sh
+test-*.bat
+*.tmp
+*.temp
 out/
 
 # Temporary files
