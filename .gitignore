@@ -55,9 +55,8 @@ setup_github_auth.bat
 setup_github.bat
 *.bat
 
-# GitHub setup files
+# Local setup files (not for public repo)
 GITHUB_SETUP.md
-*.md
 
 # Temporary and test files
 test-*.sh
