@@ -54,6 +54,7 @@ push_with_credential_manager.bat
 setup_github_auth.bat
 setup_github.bat
 *.bat
+GITHUB_SETUP.md
 
 # Temporary and test files
 test-*.sh
